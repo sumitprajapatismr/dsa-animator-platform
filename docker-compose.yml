@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  database:
+    image: mongo:latest
+    container_name: brain-dsa-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: brain-dsa-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://database:27017/dsa-animator
+      - JWT_SECRET=super_secret_dsa_jwt_key_12345
+      - JWT_REFRESH_SECRET=super_secret_dsa_refresh_key_67890
+    depends_on:
+      - database
+
+  frontend:
+    build: ./frontend
+    container_name: brain-dsa-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
