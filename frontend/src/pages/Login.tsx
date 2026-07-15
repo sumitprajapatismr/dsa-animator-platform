@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
+import api from '../utils/api';
 import { authStart, authSuccess, authFailure } from '../features/authSlice';
 import { Flame } from 'lucide-react';
 
@@ -21,7 +21,7 @@ const Login: React.FC = () => {
     dispatch(authStart());
 
     try {
-      const res = await axios.post('/api/auth/login', { email, password });
+      const res = await api.post('/api/auth/login', { email, password });
       localStorage.setItem('show_startup_animation', 'true');
       dispatch(authSuccess({ token: res.data.token, user: res.data.user }));
       navigate('/');
@@ -40,8 +40,7 @@ const Login: React.FC = () => {
     dispatch(authStart());
 
     try {
-      const res = await axios.post('/api/auth/google-mock', {
-        email: 'google_student@domain.com',
+      const res = await api.post('/api/auth/google-mock', {
         name: 'Google Student'
       });
       localStorage.setItem('show_startup_animation', 'true');

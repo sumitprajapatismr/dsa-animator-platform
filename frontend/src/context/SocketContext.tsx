@@ -28,12 +28,14 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       return;
     }
 
-    const socketUrl = window.location.hostname === 'localhost' ? 'http://localhost:5000' : window.location.origin;
-    const socketInstance = io(socketUrl, {
-      auth: { token: localStorage.getItem('token') },
-      transports: ['websocket', 'polling'],
-      autoConnect: true
-    });
+    const socketUrl =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+const socketInstance = io(socketUrl, {
+  auth: { token: localStorage.getItem("token") },
+  transports: ["websocket", "polling"],
+  autoConnect: true,
+});
 
     socketInstance.on('connect', () => {
       setIsConnected(true);

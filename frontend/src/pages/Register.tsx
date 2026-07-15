@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
+import api from '../utils/api';
 import { authStart, authSuccess, authFailure } from '../features/authSlice';
 import { Flame } from 'lucide-react';
 
@@ -22,7 +22,7 @@ const Register: React.FC = () => {
     dispatch(authStart());
 
     try {
-      const res = await axios.post('/api/auth/register', { name, email, password });
+      const res = await api.post('/api/auth/register', { name, email, password });
       dispatch(authSuccess({ token: res.data.token, user: res.data.user }));
       navigate('/');
     } catch (err: any) {
