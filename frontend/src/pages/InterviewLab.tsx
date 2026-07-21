@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Target, Award, Play, AlertCircle, Heart, CheckCircle2 } from 'lucide-react';
-
+import api from "../utils/api";
 interface Scorecard {
   codingScore: number;
   logicScore: number;
@@ -30,7 +30,7 @@ const InterviewLab: React.FC = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('/api/ai/interview', {
+      const res = await api.post('/api/ai/interview', {
         currentStep: 0,
         userResponse: 'Start mock interview session',
         topic: `DSA coding focus for ${selectedCompany}`
@@ -57,7 +57,7 @@ const InterviewLab: React.FC = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('/api/ai/interview', {
+      const res = await api.post('/api/ai/interview', {
         currentStep: chatLog.length === 1 ? 1 : 2,
         userResponse: answer,
         topic: `DSA coding focus for ${selectedCompany}`
@@ -262,3 +262,4 @@ const InterviewLab: React.FC = () => {
 };
 
 export default InterviewLab;
+

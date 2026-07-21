@@ -310,3 +310,4 @@ const RefreshCw: React.FC<{ className?: string }> = ({ className }) => (
 );
 
 export default AIWhiteboard;
+

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Target, Search, Sliders } from 'lucide-react';
-
+import api from "../utils/api";
 interface Prob {
   _id: string;
   title: string;
@@ -22,7 +22,7 @@ const CompanyPrep: React.FC = () => {
     setLoading(true);
     try {
       // Mock company problem mapping: Google maps to two-sum, Meta maps to valid-parentheses, Amazon maps to both
-      const res = await axios.get('/api/problems');
+      const res = await api.get('/api/problems');
       const all = res.data.problems;
       
       let filtered = all;
@@ -111,3 +111,4 @@ const CompanyPrep: React.FC = () => {
 };
 
 export default CompanyPrep;
+

@@ -237,3 +237,4 @@ const ResumeBuilder: React.FC = () => {
 };
 
 export default ResumeBuilder;
+

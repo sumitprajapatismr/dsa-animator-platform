@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { updateUserStats } from '../features/authSlice';
 import { Play, Send, Sparkles, MessageSquare, Award, ArrowLeft, RefreshCw, Terminal } from 'lucide-react';
-
+import api from "../utils/api";
 interface ProblemDetail {
   _id: string;
   title: string;
@@ -44,7 +44,7 @@ const Playground: React.FC = () => {
   useEffect(() => {
     const fetchProblem = async () => {
       try {
-        const res = await axios.get(`/api/problems/${slug}`);
+        const res = await api.get(`/api/problems/${slug}`);
         setProblem(res.data.problem);
         
         // Load initial template
@@ -75,7 +75,7 @@ const Playground: React.FC = () => {
     setConsoleOutput('Running compiler execution...');
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('/api/problems/run', {
+      const res = await api.post('/api/problems/run', {
         code,
         language,
         input: consoleInput || problem.examples[0]?.input || ''
@@ -103,7 +103,7 @@ const Playground: React.FC = () => {
     setConsoleOutput('Executing submissions against validation tests...');
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post(`/api/problems/${problem._id}/submit`, {
+      const res = await api.post(`/api/problems/${problem._id}/submit`, {
         code,
         language
       }, {
@@ -158,7 +158,7 @@ const Playground: React.FC = () => {
     setAiOutput('AI Interviewer is evaluating...');
 
     try {
-      const res = await axios.post('/api/ai/interview', {
+      const res = await api.post('/api/ai/interview', {
         currentStep: step,
         userResponse: code,
         topic: interviewTopic
@@ -186,12 +186,12 @@ const Playground: React.FC = () => {
 
     try {
       if (action === 'review') {
-        const res = await axios.post('/api/ai/review', { code, language }, {
+        const res = await api.post('/api/ai/review', { code, language }, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setAiOutput(res.data.review);
       } else if (action === 'hint') {
-        const res = await axios.post('/api/ai/hint', {
+        const res = await api.post('/api/ai/hint', {
           problemTitle: problem?.title,
           problemDescription: problem?.description,
           code,
@@ -202,7 +202,7 @@ const Playground: React.FC = () => {
         setAiOutput(res.data.hint);
       } else {
         // Chat prompt
-        const res = await axios.post('/api/ai/ask', {
+        const res = await api.post('/api/ai/ask', {
           prompt: aiPrompt,
           context: `Problem: ${problem?.title}. User code:\n${code}`
         }, {
@@ -462,3 +462,4 @@ const Playground: React.FC = () => {
 };
 
 export default Playground;
+

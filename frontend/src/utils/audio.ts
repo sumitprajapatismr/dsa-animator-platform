@@ -38,3 +38,4 @@ export const playSoundTone = (type: 'click' | 'success') => {
     console.error('Audio synthesizer failed to trigger:', err);
   }
 };
+

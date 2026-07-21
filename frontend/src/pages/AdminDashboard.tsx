@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ShieldAlert, Users, FolderOpen, Send, Trash2, Plus, Sparkles } from 'lucide-react';
-
+import api from "../utils/api";
 interface User {
   _id: string;
   name: string;
@@ -37,10 +37,10 @@ const AdminDashboard: React.FC = () => {
     setLoading(true);
     const token = localStorage.getItem('token');
     try {
-      const resAnalytic = await axios.get('/api/admin/analytics', { headers: { Authorization: `Bearer ${token}` } });
+      const resAnalytic = await api.get('/api/admin/analytics', { headers: { Authorization: `Bearer ${token}` } });
       setAnalytics(resAnalytic.data.stats);
 
-      const resUsers = await axios.get('/api/admin/users', { headers: { Authorization: `Bearer ${token}` } });
+      const resUsers = await api.get('/api/admin/users', { headers: { Authorization: `Bearer ${token}` } });
       setUsers(resUsers.data.users);
     } catch (err) {
       console.error('Failed to fetch admin dashboard metadata:', err);
@@ -56,7 +56,7 @@ const AdminDashboard: React.FC = () => {
   const handleUpdateRole = async (userId: string, role: string) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.put(`/api/admin/users/${userId}/role`, { role }, { headers: { Authorization: `Bearer ${token}` } });
+      await api.put(`/api/admin/users/${userId}/role`, { role }, { headers: { Authorization: `Bearer ${token}` } });
       fetchAdminData();
     } catch (err) {
       console.error('Failed to update role:', err);
@@ -67,7 +67,7 @@ const AdminDashboard: React.FC = () => {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`/api/admin/users/${userId}`, { headers: { Authorization: `Bearer ${token}` } });
+      await api.delete(`/api/admin/users/${userId}`, { headers: { Authorization: `Bearer ${token}` } });
       fetchAdminData();
     } catch (err) {
       console.error('Failed to delete user:', err);
@@ -80,7 +80,7 @@ const AdminDashboard: React.FC = () => {
     const token = localStorage.getItem('token');
 
     try {
-      await axios.post('/api/admin/problems', {
+      await api.post('/api/admin/problems', {
         title,
         difficulty,
         description,
@@ -358,3 +358,4 @@ const AdminDashboard: React.FC = () => {
 };
 
 export default AdminDashboard;
+

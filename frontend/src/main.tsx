@@ -7,7 +7,7 @@ import App from './App';
 import './index.css';
 import axios from 'axios';
 import { authSuccess, logoutUser } from './features/authSlice';
-
+import api from "./utils/api"; // path के अनुसार
 // Global Axios configuration
 axios.defaults.withCredentials = true;
 
@@ -42,7 +42,7 @@ axios.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       try {
-        const res = await axios.post('/api/auth/refresh');
+        const res = await api.post('/api/auth/refresh');
         const { token, user } = res.data;
         
         // Save new credentials
@@ -79,3 +79,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </Provider>
   </React.StrictMode>
 );
+

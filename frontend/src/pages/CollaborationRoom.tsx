@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import axios from 'axios';
 import { MessageSquare, Users, Edit3, Trash2, Send, Plus, ArrowRight, Shield } from 'lucide-react';
-
+import api from "../utils/api";
 interface Member {
   id: string;
   name: string;
@@ -125,7 +125,7 @@ const CollaborationRoom: React.FC = () => {
     if (!roomName.trim()) return;
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('/api/rooms', { name: roomName }, {
+      const res = await api.post('/api/rooms', { name: roomName }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setRoomCode(res.data.room.roomCode);
@@ -140,7 +140,7 @@ const CollaborationRoom: React.FC = () => {
     if (!joinCodeInput.trim()) return;
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post(`/api/rooms/${joinCodeInput.toUpperCase()}/join`, {}, {
+      const res = await api.post(`/api/rooms/${joinCodeInput.toUpperCase()}/join`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setRoomCode(res.data.room.roomCode);
@@ -471,3 +471,4 @@ const CollaborationRoom: React.FC = () => {
 };
 
 export default CollaborationRoom;
+

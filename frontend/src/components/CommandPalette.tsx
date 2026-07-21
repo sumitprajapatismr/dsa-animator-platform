@@ -90,3 +90,4 @@ const CommandPalette: React.FC = () => {
 };
 
 export default CommandPalette;
+

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
-
+import api from "../utils/api";
 export type AppTheme = 'light' | 'dark' | 'amoled' | 'blue' | 'purple' | 'green' | 'high-contrast';
 export type AccentColor = 'indigo' | 'teal' | 'purple' | 'pink' | 'emerald';
 export type FontSize = 'sm' | 'base' | 'lg';
@@ -52,7 +52,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     const fetchSettings = async () => {
       try {
-        const res = await axios.get('/api/auth/settings');
+        const res = await api.get('/api/auth/settings');
         const settings = res.data.settings;
         if (settings) {
           if (settings.theme) setThemeState(settings.theme);
@@ -72,7 +72,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const syncSettings = async (updates: Partial<{ theme: AppTheme; accent: AccentColor; fontSize: FontSize; density: SpacingDensity; glassmorphism: boolean }>) => {
     if (isAuthenticated) {
       try {
-        await axios.put('/api/auth/settings', updates);
+        await api.put('/api/auth/settings', updates);
       } catch (err) {
         console.error('Failed to update settings in db:', err);
       }
@@ -148,3 +148,4 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     </ThemeContext.Provider>
   );
 };
+

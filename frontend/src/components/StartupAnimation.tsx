@@ -136,3 +136,4 @@ const StartupAnimation: React.FC<StartupProps> = ({ userName, onComplete }) => {
 };
 
 export default StartupAnimation;
+

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Axios from 'axios';
 import { CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
-
+import api from "../utils/api";
 const VerifyEmail: React.FC = () => {
   const { token } = useParams<{ token: string }>();
   const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ const VerifyEmail: React.FC = () => {
   useEffect(() => {
     const triggerVerify = async () => {
       try {
-        const res = await Axios.get(`/api/auth/verify/${token}`);
+        const res = await api.get(`/api/auth/verify/${token}`);
         setSuccess(true);
         setMessage(res.data.message);
       } catch (err: any) {
@@ -83,3 +83,4 @@ const VerifyEmail: React.FC = () => {
 };
 
 export default VerifyEmail;
+

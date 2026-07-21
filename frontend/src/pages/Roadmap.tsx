@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { playSoundTone } from '../utils/audio';
 import { Lock, BookOpen, CheckCircle, Zap, Shield, Sparkles, Compass } from 'lucide-react';
-
+import api from "../utils/api";
 interface TopicNode {
   id: string;
   name: string;
@@ -26,7 +26,7 @@ const Roadmap: React.FC = () => {
     const fetchDashboard = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('/api/progress/dashboard', {
+        const res = await api.get('/api/progress/dashboard', {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -253,3 +253,4 @@ const Roadmap: React.FC = () => {
 };
 
 export default Roadmap;
+

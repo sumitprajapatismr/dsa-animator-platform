@@ -149,3 +149,4 @@ const Contests: React.FC = () => {
 };
 
 export default Contests;
+

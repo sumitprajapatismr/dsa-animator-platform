@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import api from "../utils/api";
 import {
   generateBubbleSortSteps,
   generateQuickSortSteps,
@@ -244,7 +245,7 @@ const Visualizer: React.FC = () => {
     const logInteraction = async () => {
       try {
         const token = localStorage.getItem('token');
-        await axios.post('/api/progress/algo', {
+        await api.post('/api/progress/algo', {
           topicId: category,
           algoId: algorithm
         }, {
@@ -613,3 +614,4 @@ const Visualizer: React.FC = () => {
 };
 
 export default Visualizer;
+

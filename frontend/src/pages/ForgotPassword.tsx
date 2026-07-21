@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'react-redux'; // Wait, let's use axios directly, not react-redux
 import Axios from 'axios';
 import { Flame } from 'lucide-react';
-
+import api from "../utils/api";
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const ForgotPassword: React.FC = () => {
     setStatusMsg('');
 
     try {
-      const res = await Axios.post('/api/auth/forgotpassword', { email });
+      const res = await api.post('/api/auth/forgotpassword', { email });
       setStatusMsg('Reset password link generated successfully.');
       if (res.data.resetToken) {
         setResetToken(res.data.resetToken);
@@ -102,3 +102,4 @@ const ForgotPassword: React.FC = () => {
 };
 
 export default ForgotPassword;
+

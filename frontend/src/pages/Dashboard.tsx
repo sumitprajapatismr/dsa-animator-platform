@@ -6,7 +6,7 @@ import { RootState } from '../app/store';
 import { updateUserStats } from '../features/authSlice';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
 import { Award, Zap, ShieldAlert, Sparkles, BookOpenCheck, Flame, Trophy } from 'lucide-react';
-
+import api from "../utils/api";
 interface DashboardPayload {
   stats: {
     xp: number;
@@ -35,7 +35,7 @@ const Dashboard: React.FC = () => {
     const fetchDashboard = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('/api/progress/dashboard', {
+        const res = await api.get('/api/progress/dashboard', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setData(res.data);
@@ -47,7 +47,7 @@ const Dashboard: React.FC = () => {
           badges: res.data.stats.badges
         }));
 
-        const resLeaderboard = await axios.get('/api/progress/leaderboard', {
+        const resLeaderboard = await api.get('/api/progress/leaderboard', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setLeaderboard(resLeaderboard.data.leaderboard);
@@ -341,3 +341,4 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+

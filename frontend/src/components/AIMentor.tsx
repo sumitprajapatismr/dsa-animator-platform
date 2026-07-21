@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { MessageSquare, X, Send, Sparkles, Award } from 'lucide-react';
-
+import api from "../utils/api";
 interface ChatMessage {
   sender: 'user' | 'mentor';
   text: string;
@@ -26,7 +26,7 @@ const AIMentor: React.FC = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('/api/ai/ask', {
+      const res = await api.post('/api/ai/ask', {
         prompt: userText,
         context: 'User is learning DSA structures. Act as a CS Professor.'
       }, {
@@ -47,7 +47,7 @@ const AIMentor: React.FC = () => {
     
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('/api/ai/quiz/Binary Trees', {
+      const res = await api.get('/api/ai/quiz/Binary Trees', {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -148,3 +148,4 @@ const AIMentor: React.FC = () => {
 };
 
 export default AIMentor;
+

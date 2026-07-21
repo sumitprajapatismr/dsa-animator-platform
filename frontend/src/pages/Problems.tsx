@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Search, SlidersHorizontal, BookOpen, AlertCircle } from 'lucide-react';
-
+import api from "../utils/api";
 interface ProblemSummary {
   _id: string;
   title: string;
@@ -28,7 +28,7 @@ const Problems: React.FC = () => {
       if (difficulty) params.difficulty = difficulty;
       if (tag) params.tag = tag;
 
-      const res = await axios.get('/api/problems', { params });
+      const res = await api.get('/api/problems', { params });
       setProblems(res.data.problems);
     } catch (err) {
       console.error('Error fetching problems:', err);
@@ -167,3 +167,4 @@ const Problems: React.FC = () => {
 };
 
 export default Problems;
+

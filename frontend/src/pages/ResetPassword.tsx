@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { Flame } from 'lucide-react';
-
+import api from "../utils/api";
 const ResetPassword: React.FC = () => {
   const { token } = useParams<{ token: string }>();
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const ResetPassword: React.FC = () => {
     setStatusMsg('');
 
     try {
-      await Axios.put(`/api/auth/resetpassword/${token}`, { password });
+      await api.put(`/api/auth/resetpassword/${token}`, { password });
       setStatusMsg('Password updated successfully! Redirecting to login...');
       setTimeout(() => {
         navigate('/login');
@@ -105,3 +105,4 @@ const ResetPassword: React.FC = () => {
 };
 
 export default ResetPassword;
+
